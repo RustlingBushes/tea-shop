@@ -29,7 +29,7 @@ const CatalogMenu = () => {
 						<ul>
 							{catalog.map((nameCat, index) => (
 								<li key={index} onClick={() => onClickCatalog}>
-									{nameCat}
+									<a href="">{nameCat}</a>
 								</li>
 							))}
 						</ul>

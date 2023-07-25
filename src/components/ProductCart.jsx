@@ -5,8 +5,10 @@ const ProductCart = ({ imageUrl, describe, title, price, size, discount, novelty
 	const [addFavorite, setAddFavorite] = React.useState(true);
 	const [teaSize, setTeaSize] = React.useState(size);
 
-	const classes = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
-	const label = novelty ? 'Новинка' : discount ? 'Скидка ' + discount + '%' : '';
+	const discFormula = Math.round(price * (discount / 100));
+	const discOrNew = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
+	const titleNewOrDisc = novelty ? 'Новинка' : discount ? 'Скидка ' + discount + '%' : '';
+	const discClass = discFormula ? 'product-cart__disc' : 'product-cart__price';
 
 	const reduceSize = () => setTeaSize(teaSize > size ? teaSize - size : teaSize);
 	const increaseSize = () => setTeaSize(size + teaSize);
@@ -22,16 +24,22 @@ const ProductCart = ({ imageUrl, describe, title, price, size, discount, novelty
 				alt=""
 			/>
 			<div className="product-cart__image">
-				<div className={classes}>{label}</div>
+				<div className={discOrNew}>{titleNewOrDisc}</div>
 				<img src={imageUrl} alt="Ovomix Gold Rosso" />
 			</div>
 			<div className="product-cart__title">
 				<p className="product-cart__subtitle-name">{describe}</p>
 				<h2 className="product-cart__title-name">{title}</h2>
 			</div>
-			<div className="product-cart__price">{price}р</div>
+			<div className="product-cart__price-box">
+				<div className={discClass}>{discFormula ? price - discFormula : price}р</div>
+			</div>
 			<div className="product-cart__box">
-				<button className="product-cart__box-minus" onClick={reduceSize}>
+				<button
+					className={
+						teaSize !== size ? 'product-cart__box-minus' : 'product-cart__box-minus--disabled'
+					}
+					onClick={reduceSize}>
 					<svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
 						<path d="M210.001-457.308v-45.384h539.998v45.384H210.001Z" />
 					</svg>
