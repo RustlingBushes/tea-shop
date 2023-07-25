@@ -1,0 +1,152 @@
+.header {
+	background: $background-w;
+	box-shadow:
+		0px 10px 60px 0px rgba(0, 0, 0, 0.05),
+		0px -5px 15px 0px rgba(255, 255, 255, 0.44) inset;
+	padding: 30px 0px;
+
+	&__logo {
+		cursor: pointer;
+	}
+
+	&__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 20px;
+	}
+
+	&__user-contact {
+		display: flex;
+		align-items: center;
+		margin-right: 60px;
+
+		svg {
+			margin-right: 9px;
+		}
+	}
+
+	&__user {
+		display: flex;
+		align-items: center;
+
+		&-box {
+			display: inline-flex;
+			align-items: center;
+			gap: 20px;
+		}
+
+		&-cart {
+			position: relative;
+			span {
+				position: absolute;
+				display: block;
+				top: -5px;
+				right: -5px;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background-color: #06d10e;
+				font-size: 12px;
+				font-weight: 600;
+				color: #fff;
+				text-align: center;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
+	&__bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__menu {
+		display: flex;
+		align-items: center;
+		font-weight: 500;
+		position: relative;
+
+		&-label {
+			margin-right: 40px;
+			position: relative;
+			cursor: pointer;
+			&:hover {
+				color: #303030;
+			}
+
+			svg {
+				position: absolute;
+				width: 15px;
+				height: 15px;
+				top: 2px;
+				right: -19px;
+			}
+		}
+
+		&-popup {
+			position: absolute;
+			left: 0px;
+			margin-top: 24px;
+			background: #ffffff;
+			box-shadow: 0px 15px 30px 5px rgba(0, 0, 0, 0.1);
+			border-radius: 15px;
+			overflow: hidden;
+			padding: 13px 0px;
+			width: 284px;
+			ul {
+				li {
+					cursor: pointer;
+					margin-bottom: 10px;
+					padding: 10px 23px;
+					&:active,
+					&:hover {
+						color: black;
+						background-color: #05af3487;
+					}
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+
+		&-list {
+			display: flex;
+			align-items: center;
+			gap: 40px;
+			cursor: pointer;
+			&:hover {
+				color: #303030;
+			}
+		}
+	}
+
+	&__search {
+		position: relative;
+
+		&-input {
+			width: 368px;
+			height: 54px;
+			padding: 12px 50px 12px 20px;
+			background: #f2f2f2;
+			border: 1px solid #b2b2b2;
+			border-radius: 10px;
+			font-size: 16px;
+			&:focus {
+				border: 1px solid rgba(0, 0, 0, 0.705);
+			}
+		}
+
+		&-icon {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			top: 12px;
+			right: 12px;
+			margin-left: 20px;
+		}
+	}
+}

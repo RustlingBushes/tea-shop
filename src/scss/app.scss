@@ -1,0 +1,73 @@
+@import "./libs/resets";
+@import "variables";
+@import "./libs/normalize";
+
+@import "components/all";
+
+body {
+	background: $background-g;
+	color: $text;
+	line-height: normal;
+}
+
+.main__catalog {
+	margin: 75px 0 75px 0;
+
+	.catalog__title {
+		margin-bottom: 30px;
+		h3 {
+			font-weight: 500;
+		}
+	}
+}
+
+.product {
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.catalog__block {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.catalog-cart {
+	padding: 20px 20px 30px 20px;
+	border: 1px solid #f2f2f2;
+	background: $background-w;
+	border-radius: 15px;
+	box-shadow:
+		4px 4px 20px 0px rgba(0, 0, 0, 0.05),
+		-8px -8px 15px 0px #fff;
+	&__image {
+		border-radius: 10px;
+		margin-bottom: 15px;
+	}
+	h2 {
+		font-size: 20px;
+		color: #000;
+		font-weight: 600;
+		text-transform: capitalize;
+		line-height: normal;
+	}
+	p {
+		font-size: 14px;
+		font-weight: 500;
+		color: $subtitle;
+		margin-top: 2px;
+		margin-bottom: 30px;
+	}
+}
+
+.details {
+	font-weight: 600;
+	display: inline-block;
+	padding: 12px 32px;
+	color: #fff;
+	background-color: $btn-background;
+	border: 1px solid $btn-border;
+	border-radius: 5px;
+}

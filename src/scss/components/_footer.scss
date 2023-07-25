@@ -1,0 +1,32 @@
+.footer {
+	background-color: $background-f;
+	padding: 100px 0px;
+
+	&__block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__info {
+		font-weight: 500;
+		color: #fff;
+		display: flex;
+		align-items: center;
+		gap: 45px;
+	}
+
+	&__socials {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+
+	&__contact {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		font-weight: 500;
+		color: #fff;
+	}
+}
