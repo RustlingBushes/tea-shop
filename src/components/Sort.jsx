@@ -1,9 +1,38 @@
+import React from 'react';
+
+const sort = [
+	'Новинки',
+	'Есть скидка',
+	'По алфавиту уве-ие',
+	'По алфавиту убы-ие',
+	'По цене уве-ие',
+	'По цене убы-ие',
+];
+
+// const arrSort = [
+// 	{ name: 'Новинки', property: 'novelty' },
+// 	{ name: 'Есть скидка', property: 'novelty' },
+// 	{ name: 'По алфавиту уве-ие', property: 'novelty' },
+// 	{ name: 'По алфавиту убы-ие', property: 'novelty' },
+// 	{ name: 'По цене уве-ие', property: 'novelty' },
+// 	{ name: 'По цене убы-ие', property: 'novelty' },
+// ];
+
 const Sort = () => {
+	const [selectSortName, setSelectSortName] = React.useState(0);
+	const [openSort, setOpenSort] = React.useState(false);
+
+	const sortName = sort[selectSortName];
+	const onClickSort = (i) => {
+		setSelectSortName(i);
+		setOpenSort(false);
+	};
+
 	return (
 		<div className="product__sort">
 			<div className="product__sort-label">
 				<p>Сортировать</p>
-				<span>Новинки</span>
+				<span onClick={() => setOpenSort(!openSort)}>{sortName}</span>
 				<svg
 					width="15"
 					height="15"
@@ -17,13 +46,18 @@ const Sort = () => {
 				</svg>
 			</div>
 			<div className="product__sort-popup">
-				<ul>
-					<li className="active">Новинки</li>
-					<li>Сначала дешёвые</li>
-					<li>Сначала дорогие</li>
-					<li>По размеру скидки</li>
-					<li>По новизне</li>
-				</ul>
+				{openSort && (
+					<ul>
+						{sort.map((sortName, index) => (
+							<li
+								key={index}
+								onClick={() => onClickSort(index)}
+								className={selectSortName === index ? 'active' : ''}>
+								{sortName}
+							</li>
+						))}
+					</ul>
+				)}
 			</div>
 		</div>
 	);

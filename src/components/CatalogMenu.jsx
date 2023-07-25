@@ -1,9 +1,17 @@
+import React from 'react';
+
+const catalog = ['Чёрный', 'Зелёный чай', 'Красный чай', 'Белый чай', 'Улун'];
+
 const CatalogMenu = () => {
+	const [openCatalog, setOpenCatalog] = React.useState(false);
+	const onClickCatalog = () => {
+		setOpenCatalog(false);
+	};
 	return (
 		<div className="header__menu">
 			<div className="header__menu-catalog">
 				<div className="header__menu-label">
-					<span>Каталог товаров</span>
+					<span onClick={() => setOpenCatalog(!openCatalog)}>Каталог товаров</span>
 					<svg
 						width="15"
 						height="15"
@@ -16,15 +24,17 @@ const CatalogMenu = () => {
 						/>
 					</svg>
 				</div>
-				<div className="header__menu-popup">
-					<ul>
-						<li>Чёрный</li>
-						<li>Зелёный чай</li>
-						<li>Красный чай</li>
-						<li>Белый чай</li>
-						<li>Улун</li>
-					</ul>
-				</div>
+				{openCatalog && (
+					<div className="header__menu-popup">
+						<ul>
+							{catalog.map((nameCat, index) => (
+								<li key={index} onClick={() => onClickCatalog}>
+									{nameCat}
+								</li>
+							))}
+						</ul>
+					</div>
+				)}
 			</div>
 			<ul className="header__menu-list">
 				<li>Оплата и доставка</li>

@@ -6,7 +6,6 @@ import Category from './components/Category';
 import Sort from './components/Sort';
 
 import teas from './assets/tea.json';
-console.log(teas);
 
 function App() {
 	return (
