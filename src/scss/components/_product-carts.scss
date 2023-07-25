@@ -3,8 +3,7 @@
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(1, 1fr);
 	grid-column-gap: 15px;
-	grid-row-gap: 50px;
-	margin-bottom: 100px;
+	grid-row-gap: 30px;
 }
 
 .product-cart {
@@ -178,5 +177,23 @@
 		path {
 			fill: #fff;
 		}
+	}
+}
+
+.product__btn-load-more {
+	margin: 40px auto 0px;
+	text-align: center;
+	font-weight: 600;
+	display: block;
+	padding: 12px 32px;
+	color: #fff;
+	background-color: #3fcf5e;
+	border: 1px solid rgba(5, 175, 52, 0.53);
+	border-radius: 5px;
+	&:active {
+		transform: translateY(3px);
+	}
+	&:hover {
+		box-shadow: 0px 0px 15px 5px rgb(19 199 48 / 21%);
 	}
 }

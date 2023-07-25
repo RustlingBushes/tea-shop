@@ -8,26 +8,20 @@ import Category from './components/Category';
 import Sort from './components/Sort';
 
 function App() {
-	const [itemTea, setItemTea] = React.useState([]);
+	const [teaCart, setTeaCart] = React.useState([]);
+	const [visible, setVisible] = React.useState(8);
+	const [loadCount] = React.useState(4);
 
-	/*
-	React.useEffect(() => {
-		try {
-			fetch('https://64a683a4096b3f0fcc7feffa.mockapi.io/items')
-				.then((response) => response.json())
-				.then((teaItem) => setItemTea(teaItem));
-		} catch (error) {
-			alert('Something went wrong');
-			console.log(`Error: ${error}`);
-		}
-	}, []);
-*/
+	const showMore = () => {
+		const newVisible = visible + loadCount;
+		setVisible(newVisible > teaCart.length ? teaCart.length : newVisible);
+	};
 
 	React.useEffect(() => {
 		try {
 			fetch('https://64a683a4096b3f0fcc7feffa.mockapi.io/items')
 				.then((res) => res.json())
-				.then((teaItem) => setItemTea(teaItem));
+				.then((teaItem) => setTeaCart(teaItem));
 		} catch (error) {
 			alert('Something went wrong!');
 			console.log(`Error: ${error}`);
@@ -45,10 +39,15 @@ function App() {
 						<Sort />
 					</div>
 					<div className="product__items">
-						{itemTea.map((obj, index) => (
+						{teaCart.slice(0, visible).map((obj, index) => (
 							<ProductCart key={index} {...obj} />
 						))}
 					</div>
+					{visible < teaCart.length && (
+						<button className="product__btn-load-more" onClick={showMore}>
+							Показать больше
+						</button>
+					)}
 				</div>
 			</div>
 			<Footer />

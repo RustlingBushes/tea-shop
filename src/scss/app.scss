@@ -9,6 +9,13 @@ body {
 	color: $text;
 	line-height: normal;
 }
+.main {
+	margin-bottom: 60px;
+}
+
+.hide {
+	display: none;
+}
 
 .main__catalog {
 	margin: 75px 0 75px 0;
