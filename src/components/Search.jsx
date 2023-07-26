@@ -1,7 +1,7 @@
 const Search = () => {
 	return (
 		<div className="header__search">
-			<input className="header__search-input" type="text" placeholder="Поиск" />
+			<input className="header__search-input" type="text" placeholder="Поиск..." />
 			<svg
 				className="header__search-icon"
 				width="30"

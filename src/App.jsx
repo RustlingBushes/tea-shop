@@ -11,7 +11,7 @@ import Skeleton from './components/ProductCart/Skeleton';
 function App() {
 	const [teaCart, setTeaCart] = React.useState([]);
 	const [visible, setVisible] = React.useState(8);
-	const [loadCount] = React.useState(4);
+	const [loadCount] = React.useState(8);
 	const [isLoading, setIsLoading] = React.useState(true);
 
 	const showMore = () => {
