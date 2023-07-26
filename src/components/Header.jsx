@@ -1,14 +1,15 @@
 import Categories from './CatalogMenu';
 import Search from './Search';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 	return (
 		<div className="header">
 			<div className="container">
 				<div className="header__top">
-					<a className="header__logo">
+					<Link to="/" className="header__logo">
 						<img src="./assets/img/logo-tea.png" alt="Breakably Ecology" />
-					</a>
+					</Link>
 					<div className="header__user">
 						<div className="header__user-contact">
 							<svg
@@ -38,7 +39,7 @@ const Header = () => {
 									/>
 								</svg>
 							</a>
-							<a className="header__user-cart" href="/cart.html">
+							<Link to="/cart" className="header__user-cart" href="/cart.html">
 								<span>2</span>
 								<svg
 									width="30"
@@ -53,7 +54,7 @@ const Header = () => {
 										fill="#333333"
 									/>
 								</svg>
-							</a>
+							</Link>
 							<a className="header__user-account" href="/account.html">
 								<svg
 									width="30"
