@@ -1,5 +1,4 @@
 import Categories from './CatalogMenu';
-import Search from './Search';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -26,7 +25,7 @@ const Header = () => {
 							<a href="tel:+89209994350">8 920 999 43 50</a>
 						</div>
 						<div className="header__user-box">
-							<a href="header__user-favorite">
+							<Link to={'/favorite'} href="header__user-favorite">
 								<svg
 									width="28"
 									height="28"
@@ -38,7 +37,7 @@ const Header = () => {
 										fill="#333333"
 									/>
 								</svg>
-							</a>
+							</Link>
 							<Link to="/cart" className="header__user-cart" href="/cart.html">
 								<span>2</span>
 								<svg
@@ -75,7 +74,6 @@ const Header = () => {
 				</div>
 				<div className="header__bottom">
 					<Categories />
-					<Search />
 				</div>
 			</div>
 		</div>

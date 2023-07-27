@@ -9,15 +9,6 @@ const sort = [
 	'По цене убы-ие',
 ];
 
-// const arrSort = [
-// 	{ name: 'Новинки', property: 'novelty' },
-// 	{ name: 'Есть скидка', property: 'novelty' },
-// 	{ name: 'По алфавиту уве-ие', property: 'novelty' },
-// 	{ name: 'По алфавиту убы-ие', property: 'novelty' },
-// 	{ name: 'По цене уве-ие', property: 'novelty' },
-// 	{ name: 'По цене убы-ие', property: 'novelty' },
-// ];
-
 const Sort = () => {
 	const [selectSortName, setSelectSortName] = React.useState(0);
 	const [openSort, setOpenSort] = React.useState(false);

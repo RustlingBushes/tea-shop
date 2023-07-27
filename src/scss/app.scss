@@ -69,3 +69,70 @@
 	border: 1px solid $btn-border;
 	border-radius: 5px;
 }
+.tea-catalog {
+	&__title {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: normal;
+		color: #bdbdbd;
+		margin-bottom: 30px;
+	}
+	&__link {
+		width: 100px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		svg {
+			width: 20px;
+			height: 20px;
+			transform: rotate(90deg);
+		}
+	}
+}
+
+.delivery {
+	&__link {
+		width: 100px;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		margin-bottom: 30px;
+		svg {
+			transform: rotate(90deg);
+		}
+	}
+	h1 {
+		font-size: 22px;
+		font-weight: 600;
+		margin-bottom: 20px;
+	}
+	&__info {
+		h2 {
+			font-size: 18px;
+			font-weight: 700;
+			margin: 5px 0px;
+		}
+		p {
+			font-weight: 500;
+		}
+		&-tea {
+			margin: 20px 0px;
+		}
+		&-paid-own {
+			margin: 20px 0px;
+		}
+	}
+}
+
+.favorite {
+	&-title {
+		font-size: 20px;
+		font-weight: 600;
+	}
+}

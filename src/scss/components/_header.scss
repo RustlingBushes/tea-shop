@@ -14,7 +14,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 20px;
+		margin-bottom: 25px;
 	}
 
 	&__user-contact {
@@ -97,6 +97,7 @@
 			overflow: hidden;
 			padding: 13px 0px;
 			width: 284px;
+			z-index: 1;
 			ul {
 				li {
 					cursor: pointer;
@@ -122,32 +123,6 @@
 			&:hover {
 				color: #303030;
 			}
-		}
-	}
-
-	&__search {
-		position: relative;
-
-		&-input {
-			width: 368px;
-			height: 54px;
-			padding: 12px 50px 12px 20px;
-			background: #f2f2f2;
-			border: 1px solid #b2b2b2;
-			border-radius: 10px;
-			font-size: 16px;
-			&:focus {
-				border: 1px solid rgba(0, 0, 0, 0.705);
-			}
-		}
-
-		&-icon {
-			position: absolute;
-			width: 30px;
-			height: 30px;
-			top: 12px;
-			right: 12px;
-			margin-left: 20px;
 		}
 	}
 }

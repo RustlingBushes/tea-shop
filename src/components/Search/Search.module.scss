@@ -1,0 +1,24 @@
+.root {
+	position: relative;
+
+	.input {
+		max-width: 368px;
+		height: 54px;
+		padding: 10px 50px 10px 20px;
+		background: rgba(5, 175, 53, 0.15);
+		border: 1px solid rgb(63, 207, 94);
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 500;
+	}
+
+	.icon {
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		top: 12px;
+		right: 12px;
+		margin-left: 20px;
+		color: #21b135;
+	}
+}

@@ -1,12 +1,9 @@
 import React from 'react';
-
-const catalog = ['Чёрный', 'Зелёный чай', 'Красный чай', 'Белый чай', 'Улун'];
+import { Link } from 'react-router-dom';
 
 const CatalogMenu = () => {
 	const [openCatalog, setOpenCatalog] = React.useState(false);
-	const onClickCatalog = () => {
-		setOpenCatalog(false);
-	};
+
 	return (
 		<div className="header__menu">
 			<div className="header__menu-catalog">
@@ -26,18 +23,30 @@ const CatalogMenu = () => {
 				</div>
 				{openCatalog && (
 					<div className="header__menu-popup">
-						<ul>
-							{catalog.map((nameCat, index) => (
-								<li key={index} onClick={() => onClickCatalog}>
-									<a href="">{nameCat}</a>
-								</li>
-							))}
+						<ul onClick={() => setOpenCatalog(false)}>
+							<li>
+								<Link to={'/black'}>Чёрный чай</Link>
+							</li>
+							<li>
+								<Link>Зелёный чай</Link>
+							</li>
+							<li>
+								<Link>Красный чай</Link>
+							</li>
+							<li>
+								<Link>Белый чай</Link>
+							</li>
+							<li>
+								<Link>Улун</Link>
+							</li>
 						</ul>
 					</div>
 				)}
 			</div>
 			<ul className="header__menu-list">
-				<li>Оплата и доставка</li>
+				<li>
+					<Link to={'/delivery-info'}>Оплата и доставка</Link>
+				</li>
 			</ul>
 		</div>
 	);

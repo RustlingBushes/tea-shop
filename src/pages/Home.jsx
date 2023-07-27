@@ -4,6 +4,7 @@ import Sort from '../components/Sort';
 import Skeleton from '../components/ProductCart/Skeleton';
 import Categoryslide from '../components/SlideCategory';
 import ProductCart from '../components/ProductCart';
+import Search from '../components/Search';
 
 const Home = () => {
 	const [teaCart, setTeaCart] = React.useState([]);
@@ -34,6 +35,7 @@ const Home = () => {
 		<div className="container">
 			<Categoryslide />
 			<div className="product">
+				<Search />
 				<Category />
 				<Sort />
 			</div>
