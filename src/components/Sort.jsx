@@ -1,6 +1,7 @@
 import React from 'react';
 
 const sort = [
+	'Все товары',
 	'Новинки',
 	'Есть скидка',
 	'По алфавиту уве-ие',
@@ -9,13 +10,12 @@ const sort = [
 	'По цене убы-ие',
 ];
 
-const Sort = () => {
-	const [selectSortName, setSelectSortName] = React.useState(0);
+const Sort = ({ value, onClickSortName }) => {
 	const [openSort, setOpenSort] = React.useState(false);
 
-	const sortName = sort[selectSortName];
-	const onClickSort = (i) => {
-		setSelectSortName(i);
+	const sortName = sort[value];
+	const onClickSort = (index) => {
+		onClickSortName(index);
 		setOpenSort(false);
 	};
 
@@ -43,7 +43,7 @@ const Sort = () => {
 							<li
 								key={index}
 								onClick={() => onClickSort(index)}
-								className={selectSortName === index ? 'active' : ''}>
+								className={value === index ? 'active' : ''}>
 								{sortName}
 							</li>
 						))}
