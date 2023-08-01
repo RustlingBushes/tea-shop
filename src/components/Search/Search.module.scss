@@ -1,24 +1,39 @@
 .root {
 	position: relative;
-
+	text-align: center;
 	.input {
 		max-width: 368px;
 		height: 54px;
-		padding: 10px 50px 10px 20px;
-		background: rgba(5, 175, 53, 0.15);
-		border: 1px solid rgb(63, 207, 94);
-		border-radius: 10px;
+		padding: 10px 35px 10px 45px;
+		background: rgba(5, 175, 53, 0.075);
+		border: 1px solid rgba(63, 207, 94, 0.555);
+		border-radius: 15px;
 		font-size: 16px;
 		font-weight: 500;
+		&:focus {
+			border: 1px solid rgb(53, 172, 79);
+		}
 	}
 
 	.icon {
 		position: absolute;
-		width: 30px;
-		height: 30px;
+		width: 28px;
+		height: 28px;
 		top: 12px;
-		right: 12px;
+		left: -10px;
 		margin-left: 20px;
 		color: #21b135;
+	}
+	.close {
+		position: absolute;
+		width: 23px;
+		height: 23px;
+		top: 16px;
+		right: 10px;
+		cursor: pointer;
+		transition: all 0.1s ease;
+		&:active {
+			transform: scale(0.8);
+		}
 	}
 }
