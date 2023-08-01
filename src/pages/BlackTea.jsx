@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 
 const BlackTea = () => {
 	return (
@@ -33,6 +34,8 @@ const BlackTea = () => {
 					</Link>
 				</div>
 				<div className="tea-catalog__cards"></div>
+				<Pagination />
+				<index />
 			</div>
 		</div>
 	);

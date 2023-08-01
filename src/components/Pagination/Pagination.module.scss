@@ -1,0 +1,44 @@
+.root {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	li {
+		cursor: pointer;
+		font-family: "Roboto";
+		font-size: 18px;
+		font-weight: 500;
+		position: relative;
+		color: #828282;
+		transition: all 0.1s ease-in-out;
+
+		&:hover {
+			gicolor: #3fcf5e;
+		}
+		svg {
+			position: absolute;
+			top: -8px;
+			left: -7px;
+			&:active path {
+				fill: #3fcf5e;
+			}
+		}
+		.next {
+			&:first-child:active {
+				transform: translateX(2px);
+			}
+		}
+		.back {
+			&:last-child:active {
+				transform: translateX(-2px);
+			}
+		}
+	}
+
+	:global {
+		.selected {
+			a {
+				color: #219653;
+			}
+		}
+	}
+}
