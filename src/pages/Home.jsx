@@ -5,8 +5,10 @@ import Skeleton from '../components/ProductCart/Skeleton';
 import Categoryslide from '../components/SlideCategory';
 import ProductCart from '../components/ProductCart';
 import Search from '../components/Search';
+import { SearchContext } from '../App';
 
-const Home = ({ searchValue, setSearchValue }) => {
+const Home = () => {
+	const { searchValue } = React.useContext(SearchContext); //!Вытаскиваем стейт используя useContext.
 	const [teaCart, setTeaCart] = React.useState([]); //! Получаем товары с back-end
 	const [visible, setVisible] = React.useState(8); //! Сколько карточек отображается сначала
 	const [loadCount] = React.useState(8); //! Сколько карточек добавляется при показать больше
@@ -58,9 +60,9 @@ const Home = ({ searchValue, setSearchValue }) => {
 
 	return (
 		<div className="container">
-			{/* <Categoryslide /> */}
+			<Categoryslide />
 			<div className="product">
-				<Search searchValue={searchValue} setSearchValue={setSearchValue} />
+				<Search />
 				<Category value={categoryId} onClickCategory={(index) => setCategoryId(index)} />
 				<Sort value={sortName} onClickSortName={(index) => setSortName(index)} />
 			</div>
