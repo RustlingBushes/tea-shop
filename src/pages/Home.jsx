@@ -59,9 +59,9 @@ const Home = () => {
 				setIsLoading(false);
 			} catch (error) {
 				alert('Something went wrong!');
-				console.log(`Error: ${error}`);
+				console.error(`Error: ${error}`);
 			}
-			window.scrollTo(0, 0);
+			// window.scrollTo(0, 0);
 		};
 		fetchData();
 	}, [categoryId, sortType, searchValue]);
