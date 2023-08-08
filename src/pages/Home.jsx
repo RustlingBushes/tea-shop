@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
 
@@ -16,7 +17,6 @@ const Home = () => {
 	const { categoryId, sort } = useSelector((state) => state.filter); //! Выбор категории и сортировки, храниться в redux.
 	const sortType = sort.sortProperty; //!  Выбор сортировки, храниться в redux.
 
-	console.log(sortType);
 	const { searchValue } = React.useContext(SearchContext); //!Вытаскиваем стейт используя useContext.
 	const [teaCart, setTeaCart] = React.useState([]); //! Получаем товары с back-end
 	const [visible, setVisible] = React.useState(8); //! Сколько карточек отображается сначала
@@ -49,21 +49,21 @@ const Home = () => {
 	const category = categoryId > 0 ? `${categoryId}` : '';
 
 	React.useEffect(() => {
-		setIsLoading(true);
-		try {
-			fetch(
-				`https://64a683a4096b3f0fcc7feffa.mockapi.io/items?category=${category}&sortBy=${sortBy}&order=${order}`,
-			)
-				.then((res) => res.json())
-				.then((teaItem) => {
-					setTeaCart(teaItem);
-					setIsLoading(false);
-				});
-		} catch (error) {
-			alert('Something went wrong!');
-			console.log(`Error: ${error}`);
-		}
-		window.scrollTo(0, 0);
+		const fetchData = async () => {
+			setIsLoading(true);
+			try {
+				const response = await axios.get(
+					`https://64a683a4096b3f0fcc7feffa.mockapi.io/items?category=${category}&sortBy=${sortBy}&order=${order}`,
+				);
+				setTeaCart(response.data);
+				setIsLoading(false);
+			} catch (error) {
+				alert('Something went wrong!');
+				console.log(`Error: ${error}`);
+			}
+			window.scrollTo(0, 0);
+		};
+		fetchData();
 	}, [categoryId, sortType, searchValue]);
 
 	return (
