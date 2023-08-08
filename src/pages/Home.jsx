@@ -1,23 +1,31 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
+
 import Category from '../components/Category';
 import Sort from '../components/Sort';
 import Skeleton from '../components/ProductCart/Skeleton';
 import Categoryslide from '../components/SlideCategory';
 import ProductCart from '../components/ProductCart';
 import Search from '../components/Search';
+
 import { SearchContext } from '../App';
 
 const Home = () => {
+	const dispatch = useDispatch();
+	const { categoryId, sort } = useSelector((state) => state.filter); //! Выбор категории и сортировки, храниться в redux.
+	const sortType = sort.sortProperty; //!  Выбор сортировки, храниться в redux.
+
+	console.log(sortType);
 	const { searchValue } = React.useContext(SearchContext); //!Вытаскиваем стейт используя useContext.
 	const [teaCart, setTeaCart] = React.useState([]); //! Получаем товары с back-end
 	const [visible, setVisible] = React.useState(8); //! Сколько карточек отображается сначала
 	const [loadCount] = React.useState(8); //! Сколько карточек добавляется при показать больше
 	const [isLoading, setIsLoading] = React.useState(true); //! Skeleton
-	const [categoryId, setCategoryId] = React.useState(0); //! Выбор категории
-	const [sortName, setSortName] = React.useState({
-		name: 'По алфавиту уве-ие',
-		property: '-title',
-	}); //! Выбор сортировки
+
+	const onChangeCategory = (id) => {
+		dispatch(setCategoryId(id));
+	};
 
 	const skeleton = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 	const tea = teaCart
@@ -36,8 +44,8 @@ const Home = () => {
 		setVisible(newVisible > teaCart.length ? teaCart.length : newVisible);
 	};
 
-	const sortBy = sortName.property.replace('-', '');
-	const order = sortName.property.includes('-') ? 'asc' : 'desc';
+	const sortBy = sortType.replace('-', '');
+	const order = sortType.includes('-') ? 'asc' : 'desc';
 	const category = categoryId > 0 ? `${categoryId}` : '';
 
 	React.useEffect(() => {
@@ -56,15 +64,15 @@ const Home = () => {
 			console.log(`Error: ${error}`);
 		}
 		window.scrollTo(0, 0);
-	}, [categoryId, sortName]);
+	}, [categoryId, sortType, searchValue]);
 
 	return (
 		<div className="container">
 			<Categoryslide />
 			<div className="product">
 				<Search />
-				<Category value={categoryId} onClickCategory={(index) => setCategoryId(index)} />
-				<Sort value={sortName} onClickSortName={(index) => setSortName(index)} />
+				<Category value={categoryId} onChangeCategory={onChangeCategory} />
+				<Sort />
 			</div>
 			<div className="product__items">{isLoading ? skeleton : tea}</div>
 			{visible < teaCart.length && (

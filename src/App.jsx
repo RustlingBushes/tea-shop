@@ -1,5 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
 import React from 'react';
+// import { UseSelector, useDispatch } from 'react-redux/es/hooks/useSelector';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
