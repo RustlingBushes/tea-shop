@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
 
 import Category from '../components/Category';
 import Sort from '../components/Sort';
@@ -22,10 +21,6 @@ const Home = () => {
 	const [visible, setVisible] = React.useState(8); //! Сколько карточек отображается сначала
 	const [loadCount] = React.useState(8); //! Сколько карточек добавляется при показать больше
 	const [isLoading, setIsLoading] = React.useState(true); //! Skeleton
-
-	const onChangeCategory = (id) => {
-		dispatch(setCategoryId(id));
-	};
 
 	const skeleton = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 	const tea = teaCart
@@ -71,7 +66,7 @@ const Home = () => {
 			<Categoryslide />
 			<div className="product">
 				<Search />
-				<Category value={categoryId} onChangeCategory={onChangeCategory} />
+				<Category />
 				<Sort />
 			</div>
 			<div className="product__items">{isLoading ? skeleton : tea}</div>
