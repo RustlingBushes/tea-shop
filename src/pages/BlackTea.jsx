@@ -42,7 +42,7 @@ const BlackTea = () => {
 					</Link>
 				</div>
 				<div className="tea-catalog__cards"></div>
-				<Pagination value={currentPage} onChangePage={onChangePage} />
+				<Pagination currentPage={currentPage} onChangePage={onChangePage} />
 				<index />
 			</div>
 		</div>
