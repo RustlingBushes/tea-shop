@@ -1,8 +1,16 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentPage } from '../redux/slices/filterSlice';
+
+//* Урок 14. надо будет разобраться с Настройками страниц
 
 const BlackTea = () => {
+	const dispatch = useDispatch();
+	const { currentPage } = useSelector((state) => state.filter);
+	const onChangePage = (number) => {
+		dispatch(setCurrentPage(number));
+	};
 	return (
 		<div className="tea-catalog">
 			<div className="container">
@@ -34,7 +42,7 @@ const BlackTea = () => {
 					</Link>
 				</div>
 				<div className="tea-catalog__cards"></div>
-				<Pagination />
+				<Pagination value={currentPage} onChangePage={onChangePage} />
 				<index />
 			</div>
 		</div>

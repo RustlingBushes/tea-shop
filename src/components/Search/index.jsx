@@ -1,14 +1,30 @@
 import React from 'react';
 import styles from './Search.module.scss';
+import debounce from 'lodash.debounce';
 import { SearchContext } from '../../App';
 
 const Search = () => {
-	const { searchValue, setSearchValue } = React.useContext(SearchContext);
-
+	const [value, setValue] = React.useState(''); //* For search input (stored it locally)
+	const { setSearchValue } = React.useContext(SearchContext);
 	const inputRef = React.useRef(null);
+
 	const onClickClear = () => {
 		setSearchValue('');
+		setValue('');
 		inputRef.current.focus();
+	};
+
+	//*Здесь мы сохраняем отложенную ссылку на функцию
+	const updateSearchValue = React.useCallback(
+		debounce((string) => {
+			setSearchValue(string);
+		}, 300),
+		[],
+	);
+	//* Как только меняется инпут вызывается useCallBack
+	const onChangeInput = (event) => {
+		setValue(event.target.value);
+		updateSearchValue(event.target.value);
 	};
 
 	return (
@@ -29,13 +45,13 @@ const Search = () => {
 			</svg>
 			<input
 				ref={inputRef}
-				value={searchValue}
-				onChange={(event) => setSearchValue(event.target.value)}
+				value={value}
+				onChange={onChangeInput}
 				className={styles.input}
 				type="text"
 				placeholder="Поиск..."
 			/>
-			{searchValue && (
+			{value && (
 				<svg
 					onClick={onClickClear}
 					className={styles.close}
