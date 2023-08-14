@@ -15,14 +15,29 @@ const Sort = () => {
 	const dispatch = useDispatch();
 	const sort = useSelector((state) => state.filter.sort);
 	const [openSort, setOpenSort] = React.useState(false);
+	const sortRef = React.useRef();
 
 	const onClickListItem = (obj) => {
 		dispatch(setSort(obj));
 		setOpenSort(false);
 	};
 
+	React.useEffect(() => {
+		const sortClickOutside = (event) => {
+			if (!event.composedPath().includes(sortRef.current)) {
+				setOpenSort(false);
+			}
+		};
+
+		document.body.addEventListener('click', sortClickOutside);
+
+		return () => {
+			document.body.removeEventListener('click', sortClickOutside);
+		};
+	}, []);
+
 	return (
-		<div className="product__sort">
+		<div ref={sortRef} className="product__sort">
 			<div className="product__sort-label">
 				<p>Сортировать</p>
 				<span onClick={() => setOpenSort(!openSort)}>{sort.name}</span>

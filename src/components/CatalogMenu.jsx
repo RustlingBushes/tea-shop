@@ -4,8 +4,23 @@ import { Link } from 'react-router-dom';
 const CatalogMenu = () => {
 	const [openCatalog, setOpenCatalog] = React.useState(false);
 
+	const catalogRef = React.useRef();
+
+	React.useEffect(() => {
+		const catalogClickOutside = (event) => {
+			if (!event.composedPath().includes(catalogRef.current)) {
+				setOpenCatalog(false);
+			}
+		};
+		document.body.addEventListener('click', catalogClickOutside);
+
+		return () => {
+			document.body.removeEventListener('click', catalogClickOutside);
+		};
+	}, []);
+
 	return (
-		<div className="header__menu">
+		<div ref={catalogRef} className="header__menu">
 			<div className="header__menu-catalog">
 				<div className="header__menu-label">
 					<span onClick={() => setOpenCatalog(!openCatalog)}>Каталог товаров</span>

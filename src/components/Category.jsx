@@ -1,3 +1,4 @@
+// import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice.js';
 
@@ -9,6 +10,10 @@ const Category = () => {
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id));
 	};
+
+	// const onChangeCategory = React.useCallback((id) => {
+	// 	dispatch(setCategoryId(id));
+	// }, []);
 
 	return (
 		<ul className="product__category">

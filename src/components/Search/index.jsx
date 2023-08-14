@@ -6,7 +6,7 @@ import { SearchContext } from '../../App';
 const Search = () => {
 	const [value, setValue] = React.useState(''); //* For search input (stored it locally)
 	const { setSearchValue } = React.useContext(SearchContext);
-	const inputRef = React.useRef(null);
+	const inputRef = React.useRef();
 
 	const onClickClear = () => {
 		setSearchValue('');

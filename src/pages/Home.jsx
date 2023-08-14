@@ -17,6 +17,9 @@ import { SearchContext } from '../App';
 const Home = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const isSearch = React.useRef(false);
+	const isMounted = React.useRef(false);
+
 	const { categoryId, sort } = useSelector((state) => state.filter); //! Выбор категории и сортировки, храниться в redux.
 	//!  Выбор сортировки, храниться в redux.
 
@@ -26,7 +29,42 @@ const Home = () => {
 	const [loadCount] = React.useState(8); //! Сколько карточек добавляется при показать больше
 	const [isLoading, setIsLoading] = React.useState(true); //! Skeleton
 
+	const fetchTea = () => {
+		//* Отвечает за отображением скелетона и получения пицц с бэка.
+		setIsLoading(true);
+		const sortBy = sort.sortProperty.replace('-', '');
+		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+		const category = categoryId > 0 ? `${categoryId}` : '';
+		try {
+			axios
+				.get(
+					`https://64a683a4096b3f0fcc7feffa.mockapi.io/items?category=${category}&sortBy=${sortBy}&order=${order}`,
+				)
+				.then((response) => {
+					setTeaCart(response.data);
+					setIsLoading(false);
+				});
+		} catch (error) {
+			alert('Something went wrong!');
+			console.error(`Error: ${error}`);
+		}
+	};
+
 	React.useEffect(() => {
+		//* Если изменили параметры и был первый рендер.
+		//*Создание ссылки(парсим её). Для этого используем useNavigate from rrd.
+		if (isMounted.current) {
+			const queryString = qs.stringify({
+				sortProperty: sort.sortProperty,
+				categoryId,
+			});
+			navigate(`?${queryString}`);
+		}
+		isMounted.current = true;
+	}, [categoryId, sort.sortProperty]);
+
+	React.useEffect(() => {
+		//*Если был первый рендер, то проверяем URL параметры и сохраняем в REDUX.
 		if (window.location.search) {
 			const params = qs.parse(window.location.search.substring(1));
 			const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
@@ -36,45 +74,24 @@ const Home = () => {
 					sort,
 				}),
 			);
+			isSearch.current = true;
 		}
 	}, []);
+
+	React.useEffect(() => {
+		//* Если был первый рендер, то запрашиваем пиццы.
+		// window.scrollTo(0, 0);
+		if (!isSearch.current) {
+			fetchTea();
+		}
+		isSearch.current = false;
+	}, [categoryId, sort.sortProperty, searchValue]);
 
 	const showMore = () => {
 		//* Показать больше товаров на главной странице.
 		const newVisible = visible + loadCount;
 		setVisible(newVisible > teaCart.length ? teaCart.length : newVisible);
 	};
-
-	React.useEffect(() => {
-		//* Отвечает за отображением скелетона и получения пицц с бэка.
-		const fetchData = async () => {
-			setIsLoading(true);
-			const sortBy = sort.sortProperty.replace('-', '');
-			const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
-			const category = categoryId > 0 ? `${categoryId}` : '';
-			try {
-				const response = await axios.get(
-					`https://64a683a4096b3f0fcc7feffa.mockapi.io/items?category=${category}&sortBy=${sortBy}&order=${order}`,
-				);
-				setTeaCart(response.data);
-				setIsLoading(false);
-			} catch (error) {
-				alert('Something went wrong!');
-				console.error(`Error: ${error}`);
-			}
-			// window.scrollTo(0, 0);
-		};
-		fetchData();
-	}, [categoryId, sort.sortProperty, searchValue]);
-
-	React.useEffect(() => {
-		//*Создание ссылки(парсим её). Для этого используем useNavigate from rrd.
-		const queryString = qs.stringify({
-			sortProperty: sort.sortProperty,
-			categoryId,
-		});
-		navigate(`?${queryString}`);
-	}, [categoryId, sort.sortProperty]);
 
 	const skeleton = [...new Array(8)].map((_, index) => <Skeleton key={index} />); //* Фальшивый массив для скелетона
 	const tea = teaCart
