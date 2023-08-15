@@ -11,10 +11,6 @@ const Category = () => {
 		dispatch(setCategoryId(id));
 	};
 
-	// const onChangeCategory = React.useCallback((id) => {
-	// 	dispatch(setCategoryId(id));
-	// }, []);
-
 	return (
 		<ul className="product__category">
 			{categories.map((categoryName, index) => (

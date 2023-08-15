@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from './Search.module.scss';
 import debounce from 'lodash.debounce';
-import { SearchContext } from '../../App';
+import { setSearchValue } from '../../redux/slices/filterSlice';
+import { useDispatch } from 'react-redux';
+// import { SearchContext } from '../../App';
 
 const Search = () => {
+	const dispatch = useDispatch();
 	const [value, setValue] = React.useState(''); //* For search input (stored it locally)
-	const { setSearchValue } = React.useContext(SearchContext);
+	// const { setSearchValue } = React.useContext(SearchContext);
 	const inputRef = React.useRef();
 
 	const onClickClear = () => {
@@ -17,7 +20,7 @@ const Search = () => {
 	//*Здесь мы сохраняем отложенную ссылку на функцию
 	const updateSearchValue = React.useCallback(
 		debounce((string) => {
-			setSearchValue(string);
+			dispatch(setSearchValue(string));
 		}, 300),
 		[],
 	);

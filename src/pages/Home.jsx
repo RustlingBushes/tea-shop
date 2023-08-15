@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilters } from '../redux/slices/filterSlice';
+import { useNavigate } from 'react-router-dom';
+import { initialState, setFilters } from '../redux/slices/filterSlice';
 
 import Category from '../components/Category';
 import Sort, { sortList } from '../components/Sort';
@@ -12,18 +12,18 @@ import Categoryslide from '../components/SlideCategory';
 import ProductCart from '../components/ProductCart';
 import Search from '../components/Search';
 
-import { SearchContext } from '../App';
+// import { SearchContext } from '../App';
 
 const Home = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);
-
-	const { categoryId, sort } = useSelector((state) => state.filter); //! Выбор категории и сортировки, храниться в redux.
+	const { categoryId, sort, searchValue } = useSelector((state) => state.filter);
+	//! Выбор категории и сортировки, храниться в redux.
 	//!  Выбор сортировки, храниться в redux.
 
-	const { searchValue } = React.useContext(SearchContext); //!Вытаскиваем стейт используя useContext.
+	// const { searchValue } = React.useContext(SearchContext); //!Вытаскиваем стейт используя useContext.
 	const [teaCart, setTeaCart] = React.useState([]); //! Получаем товары с back-end
 	const [visible, setVisible] = React.useState(8); //! Сколько карточек отображается сначала
 	const [loadCount] = React.useState(8); //! Сколько карточек добавляется при показать больше
@@ -35,15 +35,14 @@ const Home = () => {
 		const sortBy = sort.sortProperty.replace('-', '');
 		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
 		const category = categoryId > 0 ? `${categoryId}` : '';
+		const url = `https://64a683a4096b3f0fcc7feffa.mockapi.io/items?
+		sortBy=${sortBy}&order=${order}&category=${category}`;
+
 		try {
-			axios
-				.get(
-					`https://64a683a4096b3f0fcc7feffa.mockapi.io/items?category=${category}&sortBy=${sortBy}&order=${order}`,
-				)
-				.then((response) => {
-					setTeaCart(response.data);
-					setIsLoading(false);
-				});
+			axios.get(url).then((response) => {
+				setTeaCart(response.data);
+				setIsLoading(false);
+			});
 		} catch (error) {
 			alert('Something went wrong!');
 			console.error(`Error: ${error}`);
@@ -80,7 +79,7 @@ const Home = () => {
 
 	React.useEffect(() => {
 		//* Если был первый рендер, то запрашиваем пиццы.
-		// window.scrollTo(0, 0);
+		window.scrollTo(0, 0);
 		if (!isSearch.current) {
 			fetchTea();
 		}
