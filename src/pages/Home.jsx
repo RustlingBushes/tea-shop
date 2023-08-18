@@ -1,18 +1,15 @@
 import React from 'react';
-import axios from 'axios';
 import qs from 'qs';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { initialState, setFilters } from '../redux/slices/filterSlice';
+import { setFilters } from '../redux/slices/filterSlice';
+import { setVisible, fetchTeas } from '../redux/slices/teaSlice';
 
 import Category from '../components/Category';
 import Sort, { sortList } from '../components/Sort';
 import Skeleton from '../components/ProductCart/Skeleton';
-import Categoryslide from '../components/SlideCategory';
 import ProductCart from '../components/ProductCart';
 import Search from '../components/Search';
-
-// import { SearchContext } from '../App';
 
 const Home = () => {
 	const navigate = useNavigate();
@@ -20,33 +17,27 @@ const Home = () => {
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);
 	const { categoryId, sort, searchValue } = useSelector((state) => state.filter);
-	//! Выбор категории и сортировки, храниться в redux.
-	//!  Выбор сортировки, храниться в redux.
+	const { teaItems, status, visible, loadCount } = useSelector((state) => state.tea);
 
-	// const { searchValue } = React.useContext(SearchContext); //!Вытаскиваем стейт используя useContext.
-	const [teaCart, setTeaCart] = React.useState([]); //! Получаем товары с back-end
-	const [visible, setVisible] = React.useState(8); //! Сколько карточек отображается сначала
-	const [loadCount] = React.useState(8); //! Сколько карточек добавляется при показать больше
-	const [isLoading, setIsLoading] = React.useState(true); //! Skeleton
+	const showMore = () => {
+		//* Показать больше товаров на главной странице.
+		const newVisible = visible + loadCount;
+		dispatch(setVisible(newVisible > teaItems.length ? teaItems.length : newVisible));
+	};
 
-	const fetchTea = () => {
+	const getFetchTeas = async () => {
 		//* Отвечает за отображением скелетона и получения пицц с бэка.
-		setIsLoading(true);
 		const sortBy = sort.sortProperty.replace('-', '');
 		const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
 		const category = categoryId > 0 ? `${categoryId}` : '';
-		const url = `https://64a683a4096b3f0fcc7feffa.mockapi.io/items?
-		sortBy=${sortBy}&order=${order}&category=${category}`;
-
-		try {
-			axios.get(url).then((response) => {
-				setTeaCart(response.data);
-				setIsLoading(false);
-			});
-		} catch (error) {
-			alert('Something went wrong!');
-			console.error(`Error: ${error}`);
-		}
+		//* Xраним в redux состояние async запроса который обрабатывает его.
+		dispatch(
+			fetchTeas({
+				sortBy,
+				order,
+				category,
+			}),
+		);
 	};
 
 	React.useEffect(() => {
@@ -81,19 +72,13 @@ const Home = () => {
 		//* Если был первый рендер, то запрашиваем пиццы.
 		window.scrollTo(0, 0);
 		if (!isSearch.current) {
-			fetchTea();
+			getFetchTeas();
 		}
 		isSearch.current = false;
-	}, [categoryId, sort.sortProperty, searchValue]);
-
-	const showMore = () => {
-		//* Показать больше товаров на главной странице.
-		const newVisible = visible + loadCount;
-		setVisible(newVisible > teaCart.length ? teaCart.length : newVisible);
-	};
+	}, [categoryId, sort.sortProperty]);
 
 	const skeleton = [...new Array(8)].map((_, index) => <Skeleton key={index} />); //* Фальшивый массив для скелетона
-	const tea = teaCart
+	const tea = teaItems
 		.filter((obj) => {
 			if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
 				return true;
@@ -106,14 +91,23 @@ const Home = () => {
 
 	return (
 		<div className="container">
-			<Categoryslide />
 			<div className="product">
 				<Search />
 				<Category />
 				<Sort />
 			</div>
-			<div className="product__items">{isLoading ? skeleton : tea}</div>
-			{visible < teaCart.length && (
+			{status === 'error' ? (
+				<div className="product__error">
+					<h2>Произошла Ошибка 😕</h2>
+					<p>К сожалению не удалось получить список товаров.</p>
+					<p>Возможно сервер испытывает проблемы или ваше интернет соединение слишком медленное</p>
+					<p>Вы можете попытаться ещё раз через некоторое время.</p>
+				</div>
+			) : (
+				<div className="product__items">{status === 'loading' ? skeleton : tea}</div>
+			)}
+
+			{visible < teaItems.length && (
 				<button className="product__btn-load-more" onClick={showMore}>
 					Показать больше
 				</button>

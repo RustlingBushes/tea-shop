@@ -1,19 +1,37 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../../redux/slices/cartSlice';
+import { useEffect } from 'react';
 
-const ProductCart = ({ imageUrl, describe, title, price, size, discount, novelty }) => {
+const ProductCart = ({ id, imageUrl, describe, title, price, size, discount, novelty }) => {
 	const [addGood, setAddGood] = React.useState(true);
 	const [addFavorite, setAddFavorite] = React.useState(true);
 	const [teaSize, setTeaSize] = React.useState(size);
 
 	const discFormula = Math.round(price * (discount / 100));
 	const discOrNew = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
-	const titleNewOrDisc = novelty ? 'Новинка' : discount ? 'Скидка ' + discount + '%' : '';
+	const titleNewOrDisc = novelty ? 'Новинка' : discount ? `Скидка ${discount} %` : '';
 	const discClass = discFormula ? 'product-cart__disc' : 'product-cart__price';
 
 	const reduceSize = () => setTeaSize(teaSize > size ? teaSize - size : teaSize);
 	const increaseSize = () => setTeaSize(size + teaSize);
-	const onClickAdd = () => setAddGood(!addGood);
 	const onClickFavorite = () => setAddFavorite(!addFavorite);
+
+	const dispatch = useDispatch();
+
+	const onClickAdd = () => {
+		const item = {
+			id,
+			title,
+			describe,
+			price,
+			size,
+			imageUrl,
+			teaSize,
+		};
+		setAddGood(!addGood);
+		dispatch(addItem(item));
+	};
 
 	return (
 		<div className="product-cart">
@@ -55,10 +73,9 @@ const ProductCart = ({ imageUrl, describe, title, price, size, discount, novelty
 				<a className="product-cart__info details" href="/cart.html">
 					Подробнее
 				</a>
-				<button
-					className={addGood ? 'product-cart__btn' : 'product-cart__btn--add'}
-					onClick={onClickAdd}>
+				<button className={addGood ? 'product-cart__btn' : 'product-cart__btn--add'}>
 					<svg
+						onClick={onClickAdd}
 						width="30"
 						height="30"
 						viewBox="0 0 30 30"

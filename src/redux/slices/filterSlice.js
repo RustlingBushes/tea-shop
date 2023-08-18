@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const initialState = {
+const initialState = {
 	categoryId: 0,
 	currentPage: 1,
 	searchValue: '',

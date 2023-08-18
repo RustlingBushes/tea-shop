@@ -43,7 +43,6 @@ const BlackTea = () => {
 				</div>
 				<div className="tea-catalog__cards"></div>
 				<Pagination currentPage={currentPage} onChangePage={onChangePage} />
-				<index />
 			</div>
 		</div>
 	);

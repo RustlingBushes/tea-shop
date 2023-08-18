@@ -9,14 +9,9 @@ import BlackTea from './pages/BlackTea';
 import PayAndDelivery from './pages/PayAndDelivery';
 import Favorite from './pages/Favorite';
 
-// export const SearchContext = React.createContext();
-
 function App() {
-	// const [searchValue, setSearchValue] = React.useState('');
-
 	return (
 		<div className="wrapper">
-			{/* <SearchContext.Provider value={{ searchValue, setSearchValue }}> */}
 			<Header />
 			<div className="main">
 				<Routes>
@@ -29,7 +24,6 @@ function App() {
 				</Routes>
 			</div>
 			<Footer />
-			{/* </SearchContext.Provider> */}
 		</div>
 	);
 }
