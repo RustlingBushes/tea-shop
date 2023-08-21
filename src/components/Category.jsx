@@ -1,12 +1,12 @@
 // import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice.js';
+import { filterSelector, setCategoryId } from '../redux/slices/filterSlice.js';
 
 const categories = ['Все', 'Чёрный', 'Зелёный', 'Красный', 'Белый', 'Улун'];
 
 const Category = () => {
 	const dispatch = useDispatch();
-	const { categoryId } = useSelector((state) => state.filter);
+	const { categoryId } = useSelector(filterSelector);
 	const onChangeCategory = (id) => {
 		dispatch(setCategoryId(id));
 	};

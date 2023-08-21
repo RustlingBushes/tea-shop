@@ -2,13 +2,13 @@ import React from 'react';
 import qs from 'qs';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFilters } from '../redux/slices/filterSlice';
-import { setVisible, fetchTeas } from '../redux/slices/teaSlice';
+import { filterSelector, setFilters } from '../redux/slices/filterSlice';
+import { setVisible, fetchTeas, teaSelector } from '../redux/slices/teaSlice';
 
 import Category from '../components/Category';
 import Sort, { sortList } from '../components/Sort';
-import Skeleton from '../components/ProductCart/Skeleton';
-import ProductCart from '../components/ProductCart';
+import Skeleton from '../components/TeaCard/Skeleton';
+import ProductCart from '../components/TeaCard';
 import Search from '../components/Search';
 
 const Home = () => {
@@ -16,8 +16,8 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const isSearch = React.useRef(false);
 	const isMounted = React.useRef(false);
-	const { categoryId, sort, searchValue } = useSelector((state) => state.filter);
-	const { teaItems, status, visible, loadCount } = useSelector((state) => state.tea);
+	const { categoryId, sort, searchValue } = useSelector(filterSelector);
+	const { teaItems, status, visible, loadCount } = useSelector(teaSelector);
 
 	const showMore = () => {
 		//* Показать больше товаров на главной странице.

@@ -1,9 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
-import { useEffect } from 'react';
 
-const ProductCart = ({ id, imageUrl, describe, title, price, size, discount, novelty }) => {
+const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty }) => {
 	const [addGood, setAddGood] = React.useState(true);
 	const [addFavorite, setAddFavorite] = React.useState(true);
 	const [teaSize, setTeaSize] = React.useState(size);
@@ -95,4 +94,4 @@ const ProductCart = ({ id, imageUrl, describe, title, price, size, discount, nov
 	);
 };
 
-export default ProductCart;
+export default TeaCard;

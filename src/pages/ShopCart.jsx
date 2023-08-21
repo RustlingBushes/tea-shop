@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import CartEmpty from '../components/CartEmpty';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearItems } from '../redux/slices/cartSlice';
+import { cartSelector, clearItems } from '../redux/slices/cartSlice';
 
 const ShopCart = () => {
 	const dispatch = useDispatch();
-	const { items, totalPrice } = useSelector((state) => state.cart);
+	const { items, totalPrice } = useSelector(cartSelector);
 
 	const onClickClear = () => {
 		if (window.confirm('Вы действительно хотите удалить все товары?')) {

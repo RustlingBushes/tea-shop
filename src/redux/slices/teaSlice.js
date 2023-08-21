@@ -12,7 +12,7 @@ const initialState = {
 	teaItems: [],
 	visible: 8,
 	loadCount: 8,
-	status: 'loading', // isLoading | success | error
+	status: 'idle' | 'loading' | 'success' | 'fail',
 };
 const teaSlice = createSlice({
 	name: 'tea',
@@ -40,6 +40,8 @@ const teaSlice = createSlice({
 		});
 	},
 });
+
+export const teaSelector = (state) => state.tea;
 
 export const { setTeaItems, setVisible } = teaSlice.actions;
 

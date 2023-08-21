@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPage } from '../redux/slices/filterSlice';
+import { filterSelector, setCurrentPage } from '../redux/slices/filterSlice';
 
 //* Урок 14. надо будет разобраться с Настройками страниц
 
 const BlackTea = () => {
 	const dispatch = useDispatch();
-	const { currentPage } = useSelector((state) => state.filter);
+	const { currentPage } = useSelector(filterSelector);
 	const onChangePage = (number) => {
 		dispatch(setCurrentPage(number));
 	};

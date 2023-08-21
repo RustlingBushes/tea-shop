@@ -36,6 +36,9 @@ const cartSlice = createSlice({
 	},
 });
 //* Урок 16 c 48 минуты пересмотреть.
+
+export const cartSelector = (state) => state.cart;
+
 export const { addItem, removeItem, clearItems } = cartSlice.actions;
 
 export default cartSlice.reducer;
