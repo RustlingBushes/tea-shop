@@ -25,19 +25,19 @@ const teaSlice = createSlice({
 			state.visible = action.payload;
 		},
 	},
-	extraReducers: {
-		[fetchTeas.pending]: (state) => {
+	extraReducers: (builder) => {
+		builder.addCase(fetchTeas.pending, (state) => {
 			state.status = 'loading';
 			state.teaItems = [];
-		},
-		[fetchTeas.fulfilled]: (state, action) => {
+		});
+		builder.addCase(fetchTeas.fulfilled, (state, action) => {
 			state.teaItems = action.payload;
 			state.status = 'success';
-		},
-		[fetchTeas.rejected]: (state) => {
+		});
+		builder.addCase(fetchTeas.rejected, (state) => {
 			state.status = 'error';
 			state.teaItems = [];
-		},
+		});
 	},
 });
 

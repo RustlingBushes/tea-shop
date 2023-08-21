@@ -73,9 +73,10 @@ const ProductCart = ({ id, imageUrl, describe, title, price, size, discount, nov
 				<a className="product-cart__info details" href="/cart.html">
 					Подробнее
 				</a>
-				<button className={addGood ? 'product-cart__btn' : 'product-cart__btn--add'}>
+				<button
+					onClick={onClickAdd}
+					className={addGood ? 'product-cart__btn' : 'product-cart__btn--add'}>
 					<svg
-						onClick={onClickAdd}
 						width="30"
 						height="30"
 						viewBox="0 0 30 30"
