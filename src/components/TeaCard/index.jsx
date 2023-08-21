@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty }) => {
 	const [addGood, setAddGood] = React.useState(true);
@@ -69,9 +70,9 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 				</button>
 			</div>
 			<div className="product-cart__bottom">
-				<a className="product-cart__info details" href="/cart.html">
+				<Link to={`tea/${id}`} className="product-cart__info details" href="/cart.html">
 					Подробнее
-				</a>
+				</Link>
 				<button
 					onClick={onClickAdd}
 					className={addGood ? 'product-cart__btn' : 'product-cart__btn--add'}>
