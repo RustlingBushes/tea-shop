@@ -4,9 +4,12 @@ import { addItem } from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
 
 const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty }) => {
-	const [addGood, setAddGood] = React.useState(true);
-	const [addFavorite, setAddFavorite] = React.useState(true);
+	const dispatch = useDispatch();
+
+	const [addGood, setAddGood] = React.useState(false);
+	const [addFavorite, setAddFavorite] = React.useState(false);
 	const [teaSize, setTeaSize] = React.useState(size);
+	const [teaPrice, setTeaPrice] = React.useState(price);
 
 	const discFormula = Math.round(price * (discount / 100));
 	const discOrNew = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
@@ -15,9 +18,19 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 
 	const reduceSize = () => setTeaSize(teaSize > size ? teaSize - size : teaSize);
 	const increaseSize = () => setTeaSize(size + teaSize);
+	const increasePrice = () => setTeaPrice(price + teaPrice);
+	const reducePrice = () => setTeaPrice(teaPrice > price ? teaPrice - price : teaPrice);
 	const onClickFavorite = () => setAddFavorite(!addFavorite);
 
-	const dispatch = useDispatch();
+	const onClickPlus = () => {
+		increasePrice();
+		increaseSize();
+	};
+
+	const onClickMinus = () => {
+		reducePrice();
+		reduceSize();
+	};
 
 	const onClickAdd = () => {
 		const item = {
@@ -28,6 +41,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 			size,
 			imageUrl,
 			teaSize,
+			teaPrice,
 		};
 		setAddGood(!addGood);
 		dispatch(addItem(item));
@@ -38,7 +52,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 			<img
 				className="product-cart__svg"
 				onClick={onClickFavorite}
-				src={addFavorite ? '/assets/img/icons/favorite.svg' : '/assets/img/icons/favorite-add.svg'}
+				src={addFavorite ? '/assets/img/icons/favorite-add.svg' : '/assets/img/icons/favorite.svg'}
 				alt=""
 			/>
 			<div className="product-cart__image">
@@ -50,20 +64,20 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 				<h2 className="product-cart__title-name">{title}</h2>
 			</div>
 			<div className="product-cart__price-box">
-				<div className={discClass}>{discFormula ? price - discFormula : price}р</div>
+				<div className={discClass}>{discFormula ? teaPrice - discFormula : teaPrice}р</div>
 			</div>
 			<div className="product-cart__box">
 				<button
 					className={
 						teaSize !== size ? 'product-cart__box-minus' : 'product-cart__box-minus--disabled'
 					}
-					onClick={reduceSize}>
+					onClick={onClickMinus}>
 					<svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
 						<path d="M210.001-457.308v-45.384h539.998v45.384H210.001Z" />
 					</svg>
 				</button>
 				<span className="product-cart__box-size">{teaSize}г</span>
-				<button className="product-cart__box-plus" onClick={increaseSize}>
+				<button className="product-cart__box-plus" onClick={onClickPlus}>
 					<svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
 						<path d="M450-200v-250H200v-60h250v-250h60v250h250v60H510v250h-60Z" />
 					</svg>
@@ -75,7 +89,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 				</Link>
 				<button
 					onClick={onClickAdd}
-					className={addGood ? 'product-cart__btn' : 'product-cart__btn--add'}>
+					className={addGood ? 'product-cart__btn--add' : 'product-cart__btn'}>
 					<svg
 						width="30"
 						height="30"

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchTeas = createAsyncThunk('tea/fetchTeasStatus', async (params) => {
+export const fetchTeas = createAsyncThunk('tea/fetchTeasStatus', async (params, thunkApi) => {
 	const { sortBy, order, category } = params;
 	const { data } = await axios.get(`https://64a683a4096b3f0fcc7feffa.mockapi.io/items?
 	sortBy=${sortBy}&order=${order}&category=${category}`);
@@ -18,9 +18,6 @@ const teaSlice = createSlice({
 	name: 'tea',
 	initialState,
 	reducers: {
-		setTeaItems(state, action) {
-			state.teaItems = action.payload;
-		},
 		setVisible(state, action) {
 			state.visible = action.payload;
 		},

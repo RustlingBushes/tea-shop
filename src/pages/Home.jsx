@@ -8,7 +8,7 @@ import { setVisible, fetchTeas, teaSelector } from '../redux/slices/teaSlice';
 import Category from '../components/Category';
 import Sort, { sortList } from '../components/Sort';
 import Skeleton from '../components/TeaCard/Skeleton';
-import ProductCart from '../components/TeaCard';
+import TeaCard from '../components/TeaCard';
 import Search from '../components/Search';
 
 const Home = () => {
@@ -18,6 +18,8 @@ const Home = () => {
 	const isMounted = React.useRef(false);
 	const { categoryId, sort, searchValue } = useSelector(filterSelector);
 	const { teaItems, status, visible, loadCount } = useSelector(teaSelector);
+
+	// useWhyDidYouUpdate('Home category', { categoryId });
 
 	const showMore = () => {
 		//* Показать больше товаров на главной странице.
@@ -87,7 +89,7 @@ const Home = () => {
 			}
 		})
 		.slice(0, visible)
-		.map((obj, index) => <ProductCart key={index} {...obj} />); //* Поиск через фильтр
+		.map((obj, index) => <TeaCard key={index} {...obj} />); //* Поиск через фильтр
 
 	return (
 		<div className="container">

@@ -11,7 +11,7 @@ export const sortList = [
 	{ name: 'По цене убы-ие', sortProperty: 'price' },
 ];
 
-const Sort = () => {
+const Sort = React.memo(() => {
 	const dispatch = useDispatch();
 	const sort = useSelector(filterSelectorSort);
 	const [openSort, setOpenSort] = React.useState(false);
@@ -69,6 +69,8 @@ const Sort = () => {
 			</div>
 		</div>
 	);
-};
+});
+
+Sort.displayName = 'Sort';
 
 export default Sort;
