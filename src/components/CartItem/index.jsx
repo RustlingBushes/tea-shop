@@ -32,7 +32,7 @@ const CartItem = ({
 					</div>
 					<div className={styles.price}>
 						<h3>Цена за {size}г:</h3>
-						<p>{discountPrice ? discountPrice : price} руб.</p>
+						<p>{discountPrice ? discountPrice : price ? price : price} руб.</p>
 					</div>
 				</div>
 			</div>
