@@ -2,10 +2,18 @@ import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
 import { removeItem } from '../../redux/slices/cartSlice';
 
-const CartItem = ({ id, title, describe, price, size, imageUrl, teaSize, count, teaPrice }) => {
+const CartItem = ({
+	id,
+	title,
+	describe,
+	price,
+	size,
+	imageUrl,
+	teaSize,
+	teaPrice,
+	discountPrice,
+}) => {
 	const dispatch = useDispatch();
-
-	console.log(teaPrice);
 
 	const onClickRemove = () => {
 		if (window.confirm('Вы действительно хотите удалить этот товар?')) {
@@ -24,7 +32,7 @@ const CartItem = ({ id, title, describe, price, size, imageUrl, teaSize, count, 
 					</div>
 					<div className={styles.price}>
 						<h3>Цена за {size}г:</h3>
-						<p>{price} руб.</p>
+						<p>{discountPrice ? discountPrice : price} руб.</p>
 					</div>
 				</div>
 			</div>
@@ -84,7 +92,7 @@ const CartItem = ({ id, title, describe, price, size, imageUrl, teaSize, count, 
 				</div>
 				<div className={styles.total}>
 					<h4>Итого:</h4>
-					<p>{teaPrice} руб.</p>
+					<p>{discountPrice ? discountPrice : teaPrice} руб.</p>
 				</div>
 			</div>
 		</div>

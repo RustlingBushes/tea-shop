@@ -19,8 +19,6 @@ const Home = () => {
 	const { categoryId, sort, searchValue } = useSelector(filterSelector);
 	const { teaItems, status, visible, loadCount } = useSelector(teaSelector);
 
-	// useWhyDidYouUpdate('Home category', { categoryId });
-
 	const showMore = () => {
 		//* Показать больше товаров на главной странице.
 		const newVisible = visible + loadCount;

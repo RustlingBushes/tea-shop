@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { calcTotalPrice } from '../../utils/calcTotalPrice';
 
 const initialState = {
 	totalPrice: 0,
@@ -10,30 +9,20 @@ const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
+		// addItem(state, action) {
+		// 	state.items.push(action.payload);
+		// 	state.totalPrice = state.items.reduce((sum, obj) => obj.price + sum, 0);
+		// },
 		addItem(state, action) {
 			const findItem = state.items.find((obj) => obj.id === action.payload.id);
-
 			if (findItem) {
-				findItem.teaSize + findItem.teaSize;
+				findItem.teaPrice = action.payload.teaPrice;
+				findItem.teaSize = action.payload.teaSize;
 			} else {
-				state.items.push({
-					...action.payload,
-				});
+				state.items.push(action.payload);
 			}
-			state.totalPrice = calcTotalPrice(state.items);
+			state.totalPrice = state.items.reduce((sum, obj) => obj.discountPrice + sum, 0);
 		},
-		// addItem(state, action) {
-		// 	const findItem = state.items.find((obj) => obj.id === action.payload.id);
-		// 	if (findItem) {
-		// 		findItem.count++;
-		// 	} else {
-		// 		state.items.push({
-		// 			...action.payload,
-		// 			count: 1,
-		// 		});
-		// 	}
-		// 	state.totalPrice = state.items.reduce((sum, obj) => obj. * obj.count + sum, 0);
-		// },
 		removeItem(state, action) {
 			state.items = state.items.filter((obj) => obj.id !== action.payload);
 		},

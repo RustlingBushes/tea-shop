@@ -15,11 +15,12 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 	const discOrNew = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
 	const titleNewOrDisc = novelty ? 'Новинка' : discount ? `Скидка ${discount} %` : '';
 	const discClass = discFormula ? 'product-cart__disc' : 'product-cart__price';
+	const discountPrice = teaPrice - discFormula;
 
 	const reduceSize = () => setTeaSize(teaSize > size ? teaSize - size : teaSize);
+	const reducePrice = () => setTeaPrice(teaPrice > price ? teaPrice - price : teaPrice);
 	const increaseSize = () => setTeaSize(size + teaSize);
 	const increasePrice = () => setTeaPrice(price + teaPrice);
-	const reducePrice = () => setTeaPrice(teaPrice > price ? teaPrice - price : teaPrice);
 	const onClickFavorite = () => setAddFavorite(!addFavorite);
 
 	const onClickPlus = () => {
@@ -42,6 +43,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 			imageUrl,
 			teaSize,
 			teaPrice,
+			discountPrice,
 		};
 		setAddGood(!addGood);
 		dispatch(addItem(item));
@@ -64,7 +66,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 				<h2 className="product-cart__title-name">{title}</h2>
 			</div>
 			<div className="product-cart__price-box">
-				<div className={discClass}>{discFormula ? teaPrice - discFormula : teaPrice}р</div>
+				<div className={discClass}>{discount ? discountPrice : teaPrice}р</div>
 			</div>
 			<div className="product-cart__box">
 				<button
