@@ -21,8 +21,10 @@ const cartSlice = createSlice({
 			} else {
 				state.items.push(action.payload);
 			}
-			state.totalPrice = state.items.reduce((sum, obj) => obj.discountPrice + sum, 0);
+			state.totalPrice = state.items.reduce((sum, obj) => obj.fullPriceWithDiscount + sum, 0);
 		},
+		increase(state) {},
+		decrease(state) {},
 		removeItem(state, action) {
 			state.items = state.items.filter((obj) => obj.id !== action.payload);
 		},
@@ -33,9 +35,9 @@ const cartSlice = createSlice({
 	},
 });
 //*Урок 16. 35минута.
-
+//https://youtu.be/BsIcbU4LB0k?t=5149
 export const cartSelector = (state) => state.cart;
 
-export const { addItem, removeItem, clearItems, setTeaPrice, setTeaSize } = cartSlice.actions;
+export const { addItem, removeItem, clearItems, increase, decrease } = cartSlice.actions;
 
 export default cartSlice.reducer;

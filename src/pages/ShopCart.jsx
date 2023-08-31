@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartSelector, clearItems } from '../redux/slices/cartSlice';
 
 const ShopCart = () => {
-	const dispatch = useDispatch();
 	const { items, totalPrice } = useSelector(cartSelector);
+	const dispatch = useDispatch();
 
 	const onClickClear = () => {
 		if (window.confirm('Вы действительно хотите удалить все товары?')) {

@@ -1,17 +1,17 @@
 import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
-import { removeItem } from '../../redux/slices/cartSlice';
+import { removeItem, increase, decrease } from '../../redux/slices/cartSlice';
 
 const CartItem = ({
 	id,
 	title,
 	describe,
-	price,
 	size,
 	imageUrl,
 	teaSize,
 	teaPrice,
-	discountPrice,
+	fullPriceWithDiscount,
+	priceWithDiscount,
 }) => {
 	const dispatch = useDispatch();
 
@@ -19,6 +19,13 @@ const CartItem = ({
 		if (window.confirm('Вы действительно хотите удалить этот товар?')) {
 			dispatch(removeItem(id));
 		}
+	};
+
+	const onClickPlus = () => {
+		dispatch(increase());
+	};
+	const onClickMinus = () => {
+		dispatch(decrease());
 	};
 
 	return (
@@ -32,7 +39,7 @@ const CartItem = ({
 					</div>
 					<div className={styles.price}>
 						<h3>Цена за {size}г:</h3>
-						<p>{discountPrice ? discountPrice : price ? price : price} руб.</p>
+						<p>{priceWithDiscount} руб.</p>
 					</div>
 				</div>
 			</div>
@@ -42,7 +49,7 @@ const CartItem = ({
 					<button onClick={onClickRemove}>Удалить</button>
 				</div>
 				<div className={styles.size}>
-					<button className={styles.minus}>
+					<button onClick={onClickMinus} className={styles.minus}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="35"
@@ -62,7 +69,7 @@ const CartItem = ({
 						</svg>
 					</button>
 					<p>{teaSize} г</p>
-					<button className={styles.plus}>
+					<button onClick={onClickPlus} className={styles.plus}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="35"
@@ -92,7 +99,7 @@ const CartItem = ({
 				</div>
 				<div className={styles.total}>
 					<h4>Итого:</h4>
-					<p>{discountPrice ? discountPrice : teaPrice} руб.</p>
+					<p>{fullPriceWithDiscount ? fullPriceWithDiscount : teaPrice} руб.</p>
 				</div>
 			</div>
 		</div>

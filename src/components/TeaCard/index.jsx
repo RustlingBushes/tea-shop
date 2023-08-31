@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
 
@@ -15,22 +15,19 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 	const discOrNew = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
 	const titleNewOrDisc = novelty ? 'Новинка' : discount ? `Скидка ${discount} %` : '';
 	const discClass = discFormula ? 'product-cart__disc' : 'product-cart__price';
-	const discountPrice = teaPrice - discFormula;
+	const fullPriceWithDiscount = teaPrice - discFormula;
+	const priceWithDiscount = price - discFormula;
 
-	const reduceSize = () => setTeaSize(teaSize > size ? teaSize - size : teaSize);
-	const reducePrice = () => setTeaPrice(teaPrice > price ? teaPrice - price : teaPrice);
-	const increaseSize = () => setTeaSize(size + teaSize);
-	const increasePrice = () => setTeaPrice(price + teaPrice);
 	const onClickFavorite = () => setAddFavorite(!addFavorite);
 
 	const onClickPlus = () => {
-		increasePrice();
-		increaseSize();
+		setTeaSize(size + teaSize);
+		setTeaPrice(price + teaPrice);
 	};
 
 	const onClickMinus = () => {
-		reducePrice();
-		reduceSize();
+		setTeaSize(teaSize > size ? teaSize - size : teaSize);
+		setTeaPrice(teaPrice > price ? teaPrice - price : teaPrice);
 	};
 
 	const onClickAdd = () => {
@@ -43,7 +40,8 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 			imageUrl,
 			teaSize,
 			teaPrice,
-			discountPrice,
+			fullPriceWithDiscount,
+			priceWithDiscount,
 		};
 		setAddGood(!addGood);
 		dispatch(addItem(item));
@@ -66,7 +64,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 				<h2 className="product-cart__title-name">{title}</h2>
 			</div>
 			<div className="product-cart__price-box">
-				<div className={discClass}>{discount ? discountPrice : teaPrice}р</div>
+				<div className={discClass}>{discount ? fullPriceWithDiscount : teaPrice}р</div>
 			</div>
 			<div className="product-cart__box">
 				<button
