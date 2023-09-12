@@ -21,7 +21,10 @@ const teaSlice = createSlice({
 	initialState,
 	reducers: {
 		setVisible(state, action) {
-			state.visible = action.payload.id;
+			state.visible = action.payload;
+		},
+		increaseSize(state, action) {
+			const findItem = state.teaItems.find((obj) => obj.id);
 		},
 	},
 	extraReducers: (builder) => {
@@ -42,6 +45,6 @@ const teaSlice = createSlice({
 
 export const teaSelector = (state) => state.tea;
 
-export const { setVisible, setAddFavorite, setAddGood } = teaSlice.actions;
+export const { setVisible, setTeaPrice, setAddFavorite, setTeaSize } = teaSlice.actions;
 
 export default teaSlice.reducer;

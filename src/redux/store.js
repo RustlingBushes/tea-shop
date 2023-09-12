@@ -9,4 +9,5 @@ export const store = configureStore({
 		cart,
 		tea,
 	},
+	devTools: true,
 });

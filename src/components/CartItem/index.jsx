@@ -1,6 +1,6 @@
 import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
-import { removeItem, increase, decrease } from '../../redux/slices/cartSlice';
+import { increase, decrease, removeItem } from '../../redux/slices/cartSlice';
 
 const CartItem = ({
 	id,
@@ -8,24 +8,40 @@ const CartItem = ({
 	describe,
 	size,
 	imageUrl,
-	teaSize,
 	teaPrice,
+	teaSize,
 	fullPriceWithDiscount,
 	priceWithDiscount,
+	count,
 }) => {
 	const dispatch = useDispatch();
 
-	const onClickRemove = () => {
-		if (window.confirm('Вы действительно хотите удалить этот товар?')) {
-			dispatch(removeItem(id));
-		}
+	const onClickPlus = () => {
+		console.log('+');
+		dispatch(
+			increase({
+				id,
+				teaSize,
+				fullPriceWithDiscount,
+			}),
+		);
 	};
 
-	const onClickPlus = () => {
-		dispatch(increase());
-	};
 	const onClickMinus = () => {
-		dispatch(decrease());
+		console.log('-');
+		dispatch(
+			decrease({
+				id,
+				teaSize,
+				fullPriceWithDiscount,
+			}),
+		);
+	};
+
+	const onClickRemove = () => {
+		if (window.confirm('Вы действительно хотите удалить этот товар?')) {
+			dispatch(removeItem());
+		}
 	};
 
 	return (
@@ -50,56 +66,21 @@ const CartItem = ({
 				</div>
 				<div className={styles.size}>
 					<button onClick={onClickMinus} className={styles.minus}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="35"
-							height="35"
-							viewBox="0 0 32 32"
-							fill="none">
-							<rect x="0.5" y="0.5" width="31" height="31" rx="4.5" fill="white" stroke="#00C620" />
-							<rect
-								x="22.668"
-								y="15.3335"
-								width="1.33333"
-								height="13.3333"
-								rx="0.666667"
-								transform="rotate(90 22.668 15.3335)"
-								fill="#00C620"
-							/>
+						<svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
+							<path d="M210.001-457.308v-45.384h539.998v45.384H210.001Z" />
 						</svg>
 					</button>
 					<p>{teaSize} г</p>
 					<button onClick={onClickPlus} className={styles.plus}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="35"
-							height="35"
-							viewBox="0 0 32 32"
-							fill="none">
-							<rect x="0.5" y="0.5" width="31" height="31" rx="4.5" fill="white" stroke="#00C620" />
-							<rect
-								x="15.3359"
-								y="9.33357"
-								width="1.33333"
-								height="13.3333"
-								rx="0.666667"
-								fill="#00C620"
-							/>
-							<rect
-								x="22.6699"
-								y="15.3336"
-								width="1.33333"
-								height="13.3333"
-								rx="0.666667"
-								transform="rotate(90 22.6699 15.3336)"
-								fill="#00C620"
-							/>
+						<svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" width="35">
+							<path d="M450-200v-250H200v-60h250v-250h60v250h250v60H510v250h-60Z" />
 						</svg>
 					</button>
 				</div>
 				<div className={styles.total}>
 					<h4>Итого:</h4>
 					<p>{fullPriceWithDiscount ? fullPriceWithDiscount : teaPrice} руб.</p>
+					{/* <p>{teaPrice * count} руб.</p> */}
 				</div>
 			</div>
 		</div>

@@ -10,6 +10,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 	const [addFavorite, setAddFavorite] = React.useState(false);
 	const [teaSize, setTeaSize] = React.useState(size);
 	const [teaPrice, setTeaPrice] = React.useState(price);
+	const [count, setCount] = React.useState(1);
 
 	const discFormula = Math.round(price * (discount / 100));
 	const discOrNew = discount ? 'product-cart__discount' : novelty ? 'product-cart__new' : '';
@@ -21,13 +22,16 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 	const onClickFavorite = () => setAddFavorite(!addFavorite);
 
 	const onClickPlus = () => {
+		// setTeaSize(teaSize + (size * count - teaSize + size));
 		setTeaSize(size + teaSize);
 		setTeaPrice(price + teaPrice);
+		setCount(count + 1);
 	};
 
 	const onClickMinus = () => {
 		setTeaSize(teaSize > size ? teaSize - size : teaSize);
 		setTeaPrice(teaPrice > price ? teaPrice - price : teaPrice);
+		setCount(count - 1);
 	};
 
 	const onClickAdd = () => {
@@ -42,8 +46,12 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 			teaPrice,
 			fullPriceWithDiscount,
 			priceWithDiscount,
+			count,
 		};
 		setAddGood(!addGood);
+		setTimeout(() => {
+			setAddGood(addGood);
+		}, 3000);
 		dispatch(addItem(item));
 	};
 
@@ -65,6 +73,7 @@ const TeaCard = ({ id, imageUrl, describe, title, price, size, discount, novelty
 			</div>
 			<div className="product-cart__price-box">
 				<div className={discClass}>{discount ? fullPriceWithDiscount : teaPrice}р</div>
+				{/* <div className={discClass}>{discount ? teaPrice * count : teaPrice}р</div> */}
 			</div>
 			<div className="product-cart__box">
 				<button

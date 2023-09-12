@@ -179,6 +179,7 @@
 	}
 
 	&__btn--add {
+		pointer-events: none;
 		border: 1px solid $btn-border;
 		background-color: $btn-background;
 		&:hover {
